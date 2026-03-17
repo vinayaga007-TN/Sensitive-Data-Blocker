@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataShield Pro — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L4 5.5V11C4 15.418 7.582 20.417 12 22C16.418 20.417 20 15.418 20 11V5.5L12 2Z" fill="#8B0000" stroke="#FF3B30" stroke-width="1.5"/>
+      <rect x="9" y="10" width="6" height="5" rx="1" fill="#FF6B6B"/>
+      <path d="M10 10V8.5C10 7.67 10.67 7 11.5 7H12.5C13.33 7 14 7.67 14 8.5V10" stroke="#FF6B6B" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h1>DataShield Pro</h1>
+      <div class="subtitle">Privacy protection settings</div>
+    </div>
+  </header>
+
+  <!-- 1. Detection Categories -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2>🛡️ Detection Categories</h2>
+        <div class="section-desc">Enable or disable detection for each data category</div>
+      </div>
+    </div>
+    <div id="categoriesSection">
+      <!-- Populated by options.js -->
+    </div>
+  </section>
+
+  <!-- 2. Custom Patterns -->
+  <section class="section">
+    <div class="section-header">
+      <h2>🔧 Custom Patterns</h2>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="field-label" for="patternName">Pattern Name</label>
+        <input type="text" id="patternName" placeholder="e.g. Employee ID">
+      </div>
+      <div class="form-field">
+        <label class="field-label" for="patternRegex">Regular Expression</label>
+        <textarea class="code-input" id="patternRegex" placeholder="e.g. EMP\d{6}"></textarea>
+        <span class="inline-error" id="patternError">Invalid regular expression</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="addPatternBtn">+ Add Pattern</button>
+    <div class="chips-area" id="customPatternsArea">
+      <!-- Chips added by options.js -->
+    </div>
+  </section>
+
+  <!-- 3. Whitelisted Domains -->
+  <section class="section">
+    <div class="section-header">
+      <h2>✅ Whitelisted Domains</h2>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="field-label" for="whitelistInput">Domain (e.g. example.com)</label>
+        <input type="text" id="whitelistInput" placeholder="example.com">
+        <span class="inline-error" id="whitelistError">Invalid domain format</span>
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn btn-outline" id="addDomainBtn">Add Domain</button>
+      </div>
+    </div>
+    <div class="chips-area" id="whitelistArea">
+      <!-- Chips added by options.js -->
+    </div>
+  </section>
+
+  <!-- 4. Statistics -->
+  <section class="section">
+    <div class="section-header">
+      <h2>📊 Statistics</h2>
+    </div>
+    <div class="stats-row">
+      <div class="stat-block">
+        <div class="stat-number" id="optStatTotal">0</div>
+        <div class="stat-label">Total Blocked</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number" id="optStatToday">0</div>
+        <div class="stat-label">Blocked Today</div>
+      </div>
+    </div>
+    <button class="btn btn-danger" id="resetStatsBtn">🗑️ Reset Statistics</button>
+  </section>
+
+  <!-- 5. Data & Privacy -->
+  <section class="section">
+    <div class="section-header">
+      <h2>💾 Data &amp; Privacy</h2>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-outline" id="exportBtn">⬇️ Export Settings</button>
+      <label class="btn btn-outline" style="cursor:pointer;" title="Import settings JSON">
+        ⬆️ Import Settings
+        <input type="file" id="importInput" accept=".json" style="display:none;">
+      </label>
+      <button class="btn btn-danger" id="resetAllBtn">⚠️ Reset All Settings</button>
+    </div>
+  </section>
+
+  <!-- 6. About -->
+  <section class="section">
+    <div class="section-header">
+      <h2>ℹ️ About</h2>
+    </div>
+    <div class="privacy-statement">
+      🔒 <strong>Privacy Statement:</strong> All processing is performed entirely within your browser using local JavaScript. DataShield Pro never transmits, logs, or stores any of the sensitive data it detects — or any personal information — to any server, cloud service, or third party. No data ever leaves your device.
+    </div>
+    <p style="font-size:13px;color:#666;margin-bottom:6px;" id="aboutVersion">Version 1.0.0</p>
+    <p style="font-size:13px;color:#666;">DataShield Pro — Open source, privacy-first protection for AI chat and search platforms.</p>
+  </section>
+
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle">Confirm</h3>
+    <p id="modalBody">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modalCancel">Cancel</button>
+      <button class="btn btn-danger" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="storage.js"></script>
+<script src="options.js"></script>
+</body>
+</html>
